@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query'
 import axios from 'axios'
 import { BASE_URL } from '../app/utils'
-import { Todo } from '../models/Todo'
+import { Todo } from '../models'
 
 const useTodosQuery = (select: any) => {
 	const queryClient = useQueryClient()
@@ -14,14 +14,14 @@ const useTodosQuery = (select: any) => {
 	})
 }
 
-const all = () =>
+const useAll = () =>
 	useTodosQuery((data: [Todo]) =>
 		data
 			.map((todo) => ({ ...todo, created_at: new Date(todo.created_at), updated_at: new Date(todo.created_at) }))
 			.sort((a: any, b: any) => a.created_at - b.created_at)
 	)
 
-const complete = () =>
+const useComplete = () =>
 	useTodosQuery((data: [Todo]) =>
 		data
 			.filter((todo) => todo.completed)
@@ -29,7 +29,7 @@ const complete = () =>
 			.sort((a: any, b: any) => a.created_at - b.created_at)
 	)
 
-const incomplete = () =>
+const useIncomplete = () =>
 	useTodosQuery((data: [Todo]) =>
 		data
 			.filter((todo) => !todo.completed)
@@ -37,7 +37,7 @@ const incomplete = () =>
 			.sort((a: any, b: any) => a.created_at - b.created_at)
 	)
 
-useTodosQuery.all = all
-useTodosQuery.complete = complete
-useTodosQuery.incomplete = incomplete
+useTodosQuery.all = useAll
+useTodosQuery.complete = useComplete
+useTodosQuery.incomplete = useIncomplete
 export default useTodosQuery

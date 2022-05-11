@@ -1,5 +1,9 @@
+import { useTodos } from './hooks'
+
 function App() {
-	return <div className='App'>hello, world</div>
+	const { data: todos = [] } = useTodos.all()
+
+	return <div>hello, world</div>
 }
 
 export default App
