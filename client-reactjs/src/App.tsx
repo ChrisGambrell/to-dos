@@ -1,16 +1,25 @@
 import { FormEvent, useState } from 'react'
-import { useCreateTodo, useTodos } from './hooks'
+import { useCreateTodo, useEditTodo, useTodos } from './hooks'
 import { Todo } from './models'
 
 function App() {
 	const { data: todos = [] } = useTodos.all() as { data: [Todo] }
 	const createTodo = useCreateTodo().mutate
+	const editTodo = useEditTodo().mutate
 
 	const [newTodo, setNewTodo] = useState('')
+
 	const handleCreateTodo = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		createTodo({ body: newTodo })
 		setNewTodo('')
+	}
+
+	const handleToggleTodo = (todoId: number) => {
+		const todo = todos.find((todo) => todo.id === todoId)
+		if (!todo) return
+
+		editTodo({ todoId, data: { completed: !todo.completed } })
 	}
 
 	return (
@@ -30,7 +39,12 @@ function App() {
 				</div>
 				{todos.map((todo) => (
 					<div key={todo.id} className='flex items-center space-x-2 px-1 border-t last:border-b border-gray-200 odd:bg-gray-100'>
-						<input className='flex-none' type='checkbox' checked={todo.completed} />
+						<input
+							className='flex-none'
+							type='checkbox'
+							defaultChecked={todo.completed}
+							onChange={() => handleToggleTodo(todo.id)}
+						/>
 						<div className='flex-grow truncate'>{todo.body}</div>
 					</div>
 				))}
