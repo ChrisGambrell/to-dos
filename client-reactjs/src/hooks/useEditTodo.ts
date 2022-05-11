@@ -3,7 +3,7 @@ import axios from 'axios'
 import { BASE_URL } from '../app/utils'
 import { Todo } from '../models'
 
-interface EditTodoData {
+export interface EditTodoData {
 	body?: string
 	completed?: boolean
 }

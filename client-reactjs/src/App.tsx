@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { useCreateTodo, useDeleteTodo, useEditTodo, useTodos } from './hooks'
+import { EditTodoData } from './hooks/useEditTodo'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { Todo } from './models'
 
@@ -17,11 +18,8 @@ function App() {
 		setNewTodo('')
 	}
 
-	const handleToggleTodo = (todoId: number) => {
-		const todo = todos.find((todo) => todo.id === todoId)
-		if (!todo) return
-
-		editTodo({ todoId, data: { completed: !todo.completed } })
+	const handleEditTodo = (todoId: number, data: EditTodoData) => {
+		editTodo({ todoId, data })
 	}
 
 	const handleDeleteTodo = (todoId: number) => {
@@ -51,7 +49,7 @@ function App() {
 							className='flex-none'
 							type='checkbox'
 							defaultChecked={todo.completed}
-							onChange={() => handleToggleTodo(todo.id)}
+							onChange={() => handleEditTodo(todo.id, { completed: !todo.completed })}
 						/>
 						<div className='flex-grow truncate'>{todo.body}</div>
 						<Icon
