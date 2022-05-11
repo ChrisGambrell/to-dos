@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react'
 import { useCreateTodo, useDeleteTodo, useEditTodo, useTodos } from './hooks'
 import { EditTodoData } from './hooks/useEditTodo'
+import TimeAgo from 'react-time-ago'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { Todo } from './models'
 
@@ -57,6 +58,7 @@ function App() {
 							icon='trash'
 							onClick={() => handleDeleteTodo(todo.id)}
 						/>
+						<TimeAgo className='font-light text-sm text-gray-400' date={todo.created_at} timeStyle='twitter' />
 					</div>
 				))}
 			</div>
