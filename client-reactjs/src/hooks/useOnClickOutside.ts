@@ -1,4 +1,4 @@
-import { FormEvent, MutableRefObject, RefObject, useEffect } from 'react'
+import { RefObject, useEffect } from 'react'
 
 function useOnClickOutside(ref: RefObject<HTMLElement>, handler: (event: MouseEvent | TouchEvent) => void) {
 	useEffect(() => {

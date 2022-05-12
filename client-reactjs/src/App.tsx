@@ -1,4 +1,4 @@
-import { FormEvent, MutableRefObject, useEffect, useRef, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import { useCreateTodo, useDeleteTodo, useEditTodo, useTodos, useDebounce, useOnClickOutside } from './hooks'
 import { EditTodoData } from './hooks/useEditTodo'
 import TimeAgo from 'react-time-ago'
@@ -21,7 +21,7 @@ function App() {
 	useEffect(() => {
 		if (selectedTodo !== -1) setSelectedBody(todos.find((todo) => todo.id === selectedTodo)?.body || '')
 		else setSelectedBody('')
-	}, [selectedTodo])
+	}, [todos, selectedTodo])
 
 	useEffect(() => {
 		if (debouncedBody !== todos.find((todo) => todo.id === selectedTodo)?.body && debouncedBody.trim() !== '')
@@ -48,13 +48,14 @@ function App() {
 		<div className='flex justify-center'>
 			<div className='flex flex-col w-1/2 m-4 p-4 rounded-lg bg-gray-50'>
 				<div className='mb-4 text-4xl font-bold'>To-Dos</div>
-				<div className='flex px-1 border-t border-gray-200'>
-					<form onSubmit={handleCreateTodo}>
+				<div className='flex px-1 py-2 border-t border-gray-200'>
+					<form className='flex-grow' onSubmit={handleCreateTodo}>
 						<input
-							className='flex-grow outline-none bg-inherit'
+							className='w-full outline-none bg-inherit'
 							type='text'
 							placeholder='New To-Do'
 							value={newTodo}
+							onClick={() => setSelectedTodo(-1)}
 							onChange={(e) => setNewTodo(e.target.value)}
 						/>
 					</form>
@@ -62,9 +63,9 @@ function App() {
 				{todos.map((todo) => (
 					<div
 						key={todo.id}
-						className={`group flex items-center space-x-2 px-1 ${
-							selectedTodo === todo.id ? 'border-y-2 border-gray-400' : 'border-t last:border-b border-gray-200'
-						} odd:bg-gray-100`}>
+						className={`group flex items-center space-x-2 px-1 py-2 ${
+							selectedTodo === todo.id ? 'border-x-2 border-gray-400' : 'border-t last:border-b border-gray-200'
+						} odd:bg-gray-100 hover:bg-gray-200`}>
 						<input
 							className='flex-none'
 							type='checkbox'
