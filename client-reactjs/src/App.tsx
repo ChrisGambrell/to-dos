@@ -6,7 +6,11 @@ function App() {
 	const [selectedTodo, setSelectedTodo] = useState(-1)
 
 	const FilterOption = ({ value, label }: { value: number; label: string }) => (
-		<div className='cursor-pointer hover:underline text-blue-500 active:text-blue-600' onClick={() => setFilter(value)}>
+		<div
+			className={`cursor-pointer ${
+				value === filter ? 'cursor-default text-gray-400' : 'hover:underline text-blue-500 active:text-blue-600'
+			}`}
+			onClick={() => setFilter(value)}>
 			{label}
 		</div>
 	)
