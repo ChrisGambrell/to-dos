@@ -1,5 +1,5 @@
-import { FormEvent, useState } from 'react'
-import { useCreateTodo, useDeleteTodo, useEditTodo, useTodos } from './hooks'
+import { FormEvent, useEffect, useRef, useState } from 'react'
+import { useCreateTodo, useDeleteTodo, useEditTodo, useOnClickOutside, useTodos } from './hooks'
 import { EditTodoData } from './hooks/useEditTodo'
 import TimeAgo from 'react-time-ago'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
@@ -11,7 +11,17 @@ function App() {
 	const deleteTodo = useDeleteTodo().mutate
 	const editTodo = useEditTodo().mutate
 
+	const activeTodo = useRef<HTMLDivElement>(null)
+	const [selectedTodo, setSelectedTodo] = useState(-1)
 	const [newTodo, setNewTodo] = useState('')
+
+	useOnClickOutside(activeTodo, () => {
+		console.log('click outside!')
+	})
+
+	useEffect(() => {
+		console.log(selectedTodo)
+	}, [selectedTodo])
 
 	const handleCreateTodo = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -52,7 +62,13 @@ function App() {
 							defaultChecked={todo.completed}
 							onChange={() => handleEditTodo(todo.id, { completed: !todo.completed })}
 						/>
-						<div className='flex-grow truncate'>{todo.body}</div>
+						<div
+							className='flex-grow truncate'
+							id='todo-body'
+							ref={selectedTodo === todo.id ? activeTodo : null}
+							onClick={() => setSelectedTodo(todo.id)}>
+							{todo.body}
+						</div>
 						<Icon
 							className='flex-none w-0 group-hover:w-3 h-0 group-hover:h-3 opacity-0 group-hover:opacity-100 text-red-500 active:text-red-600'
 							icon='trash'
