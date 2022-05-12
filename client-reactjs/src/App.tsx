@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from 'react'
+import { FormEvent, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useCreateTodo, useDeleteTodo, useEditTodo, useTodos, useDebounce, useOnClickOutside } from './hooks'
 import { EditTodoData } from './hooks/useEditTodo'
 import TimeAgo from 'react-time-ago'
@@ -62,7 +62,9 @@ function App() {
 				{todos.map((todo) => (
 					<div
 						key={todo.id}
-						className='group flex items-center space-x-2 px-1 border-t last:border-b border-gray-200 odd:bg-gray-100'>
+						className={`group flex items-center space-x-2 px-1 ${
+							selectedTodo === todo.id ? 'border-y-2 border-gray-400' : 'border-t last:border-b border-gray-200'
+						} odd:bg-gray-100`}>
 						<input
 							className='flex-none'
 							type='checkbox'
