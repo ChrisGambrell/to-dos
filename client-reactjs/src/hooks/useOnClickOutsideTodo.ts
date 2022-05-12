@@ -5,8 +5,8 @@ function useOnClickOutside(ref: RefObject<HTMLElement>, handler: (event: MouseEv
 		const listener = (event: MouseEvent | TouchEvent) => {
 			// Do nothing if clicking ref's element or descendent elements
 			let target = event.target as HTMLElement
-			if ((target.tagName !== 'HTML' && (!ref.current || ref.current.contains(event.target as Node))) || target.id === 'todo-body')
-				return
+			console.log(target)
+			if (target.id === 'todo-body') return
 			handler(event)
 		}
 		document.addEventListener('mousedown', listener)

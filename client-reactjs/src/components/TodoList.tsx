@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import TimeAgo from 'react-time-ago'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { useDeleteTodo, useEditTodo, useTodos, useDebounce, useOnClickOutside } from '../hooks'
+import { useDeleteTodo, useEditTodo, useTodos, useDebounce, useOnClickOutsideTodo } from '../hooks'
 import { EditTodoData } from '../hooks/useEditTodo'
 import { Todo } from '../models'
 
@@ -39,7 +39,7 @@ const TodoList = ({
 		// eslint-disable-next-line
 	}, [debouncedBody])
 
-	useOnClickOutside(activeTodo, () => setSelectedTodo(-1))
+	useOnClickOutsideTodo(activeTodo, () => setSelectedTodo(-1))
 
 	const handleEditTodo = (todoId: number, data: EditTodoData) => {
 		editTodo({ todoId, data })
@@ -66,6 +66,7 @@ const TodoList = ({
 					{selectedTodo === todo.id ? (
 						<input
 							className='flex-grow outline-none bg-inherit'
+							id='todo-body'
 							type='text'
 							placeholder='New To-Do'
 							value={selectedBody}
