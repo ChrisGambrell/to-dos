@@ -20,7 +20,7 @@ function App() {
 					<FilterOption value={1} label='Complete' />
 					<FilterOption value={2} label='Incomplete' />
 				</div>
-				<NewTodo setSelectedTodo={setSelectedTodo} />
+				<NewTodo filter={filter} setSelectedTodo={setSelectedTodo} />
 				<TodoList filter={filter} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} />
 			</div>
 		</div>

@@ -1,14 +1,14 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
 import { useCreateTodo } from '../hooks'
 
-const NewTodo = ({ setSelectedTodo }: { setSelectedTodo: Dispatch<SetStateAction<number>> }) => {
+const NewTodo = ({ filter, setSelectedTodo }: { filter: number; setSelectedTodo: Dispatch<SetStateAction<number>> }) => {
 	const createTodo = useCreateTodo().mutate
 
 	const [newTodo, setNewTodo] = useState('')
 
 	const handleCreateTodo = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		createTodo({ body: newTodo })
+		createTodo({ body: newTodo, completed: filter === 1 })
 		setNewTodo('')
 	}
 
