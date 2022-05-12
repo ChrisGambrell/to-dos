@@ -5,8 +5,18 @@ import { useDeleteTodo, useEditTodo, useTodos, useDebounce, useOnClickOutside } 
 import { EditTodoData } from '../hooks/useEditTodo'
 import { Todo } from '../models'
 
-const TodoList = ({ selectedTodo, setSelectedTodo }: { selectedTodo: number; setSelectedTodo: Dispatch<SetStateAction<number>> }) => {
-	const { data: todos = [] } = useTodos.all() as { data: [Todo] }
+const TodoList = ({
+	filter,
+	selectedTodo,
+	setSelectedTodo,
+}: {
+	filter: number
+	selectedTodo: number
+	setSelectedTodo: Dispatch<SetStateAction<number>>
+}) => {
+	const { data: todos = [] } = (filter === 0 ? useTodos.all() : filter === 1 ? useTodos.complete() : useTodos.incomplete()) as {
+		data: [Todo]
+	}
 	const deleteTodo = useDeleteTodo().mutate
 	const editTodo = useEditTodo().mutate
 

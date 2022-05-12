@@ -1,36 +1,27 @@
-import { FormEvent, useState } from 'react'
-import { useCreateTodo } from './hooks'
-import { TodoList } from './components'
+import { useState } from 'react'
+import { NewTodo, TodoList } from './components'
 
 function App() {
-	const createTodo = useCreateTodo().mutate
-
+	const [filter, setFilter] = useState(0)
 	const [selectedTodo, setSelectedTodo] = useState(-1)
-	const [newTodo, setNewTodo] = useState('')
 
-	const handleCreateTodo = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		createTodo({ body: newTodo })
-		setNewTodo('')
-	}
+	const FilterOption = ({ value, label }: { value: number; label: string }) => (
+		<div className='cursor-pointer hover:underline text-blue-500 active:text-blue-600' onClick={() => setFilter(value)}>
+			{label}
+		</div>
+	)
 
 	return (
 		<div className='flex justify-center'>
 			<div className='flex flex-col w-1/2 m-4 p-4 border border-gray-200 rounded-lg shadow-lg bg-gray-50'>
 				<div className='mb-4 text-4xl font-bold'>To-Dos</div>
-				<div className='flex px-1 py-2 border-t border-gray-200'>
-					<form className='flex-grow' onSubmit={handleCreateTodo}>
-						<input
-							className='w-full outline-none bg-inherit'
-							type='text'
-							placeholder='New To-Do'
-							value={newTodo}
-							onClick={() => setSelectedTodo(-1)}
-							onChange={(e) => setNewTodo(e.target.value)}
-						/>
-					</form>
+				<div className='flex justify-end space-x-1'>
+					<FilterOption value={0} label='All' />
+					<FilterOption value={1} label='Complete' />
+					<FilterOption value={2} label='Incomplete' />
 				</div>
-				<TodoList selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} />
+				<NewTodo setSelectedTodo={setSelectedTodo} />
+				<TodoList filter={filter} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} />
 			</div>
 		</div>
 	)
