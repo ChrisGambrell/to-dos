@@ -26,6 +26,8 @@ function App() {
 	useEffect(() => {
 		if (debouncedBody !== todos.find((todo) => todo.id === selectedTodo)?.body && debouncedBody.trim() !== '')
 			editTodo({ todoId: selectedTodo, data: { body: debouncedBody } })
+		// due to not wanting to change debounced value...
+		// eslint-disable-next-line
 	}, [debouncedBody])
 
 	useOnClickOutside(activeTodo, () => setSelectedTodo(-1))
