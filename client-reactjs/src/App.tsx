@@ -21,7 +21,9 @@ function App() {
 	useEffect(() => {
 		if (selectedTodo !== -1) setSelectedBody(todos.find((todo) => todo.id === selectedTodo)?.body || '')
 		else setSelectedBody('')
-	}, [todos, selectedTodo])
+		// due to not wanting to change body's value...
+		// eslint-disable-next-line
+	}, [selectedTodo])
 
 	useEffect(() => {
 		if (debouncedBody !== todos.find((todo) => todo.id === selectedTodo)?.body && debouncedBody.trim() !== '')
@@ -48,7 +50,7 @@ function App() {
 
 	return (
 		<div className='flex justify-center'>
-			<div className='flex flex-col w-1/2 m-4 p-4 rounded-lg bg-gray-50'>
+			<div className='flex flex-col w-1/2 m-4 p-4 border border-gray-200 rounded-lg shadow-lg bg-gray-50'>
 				<div className='mb-4 text-4xl font-bold'>To-Dos</div>
 				<div className='flex px-1 py-2 border-t border-gray-200'>
 					<form className='flex-grow' onSubmit={handleCreateTodo}>
@@ -66,7 +68,7 @@ function App() {
 					<div
 						key={todo.id}
 						className={`group flex items-center space-x-2 px-1 py-2 ${
-							selectedTodo === todo.id ? 'border-x-2 border-gray-400' : 'border-t last:border-b border-gray-200'
+							selectedTodo === todo.id ? 'border-x-2 shadow-lg border-gray-400' : 'border-t last:border-b border-gray-200'
 						} odd:bg-gray-100 hover:bg-gray-200`}>
 						<input
 							className='flex-none'
