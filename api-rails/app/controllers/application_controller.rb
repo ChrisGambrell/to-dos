@@ -12,4 +12,14 @@ class ApplicationController < ActionController::API
             render json: { errors: [e.message] }, status: :unauthorized
         end
     end
+
+    def todo_owner
+        begin
+            if @todo.user_id != @authed_user.id
+                render json: { errors: ['Unauthorized'] }, status: :unauthorized
+            end
+        rescue ActiveRecord::RecordNotFound => e
+            render json: { errors: [e.message] }, status: :unauthorized
+        end
+    end
 end

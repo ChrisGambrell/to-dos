@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+    render json: @authed_user
   end
 
   # POST /users
@@ -26,16 +26,16 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
-      render json: @user
+    if @authed_user.update(user_params)
+      render json: @authed_user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @authed_user.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /users/1
   def destroy
-    @user.destroy
+    @authed_user.destroy
   end
 
   private

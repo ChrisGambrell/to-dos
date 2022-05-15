@@ -6,5 +6,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-todo1 = Todo.create(body: "First to-do!", completed: false)
-todo2 = Todo.create(body: "Second to-do, but completed!", completed: true)
+user1 = User.create(name:'George Washington', email:'gwashington@wh.gov', password:'password')
+user2 = User.create(name:'John Adams', email:'jadams@wh.gov', password:'password')
+
+todo1 = Todo.create(body: "First to-do!", completed: false, user_id: user1.id)
+todo2 = Todo.create(body: "Second to-do, but completed!", completed: true, user_id: user1.id)

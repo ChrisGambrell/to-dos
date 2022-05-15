@@ -1,9 +1,11 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: %i[ show update destroy ]
+  before_action :logged_in
+  before_action :owned_todo, only: %i[ show, update, destroy ]
 
   # GET /todos
   def index
-    @todos = Todo.all
+    @todos = Todo.filter_by_user_id(@authed_user.id)
 
     render json: @todos
   end
@@ -16,6 +18,7 @@ class TodosController < ApplicationController
   # POST /todos
   def create
     @todo = Todo.new(todo_params)
+    @todo.user_id = @authed_user.id
 
     if @todo.save
       render json: @todo, status: :created, location: @todo
