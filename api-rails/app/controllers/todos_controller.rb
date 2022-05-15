@@ -1,11 +1,12 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: %i[ show update destroy ]
   before_action :logged_in
-  before_action :owned_todo, only: %i[ show, update, destroy ]
+  before_action :todo_owner, only: %i[ show update destroy ]
 
   # GET /todos
   def index
-    @todos = Todo.filter_by_user_id(@authed_user.id)
+    # @todos = Todo.filter_by_user_id(@authed_user.id)
+    @todos = Todo.where(:user_id => @authed_user.id).sort
 
     render json: @todos
   end
