@@ -12,7 +12,7 @@ class AuthenticationController < ApplicationController
     end
 
     def verify
-        render json: { }, status: :ok
+        render json: @authed_user, status: :ok
     end
 
     private
