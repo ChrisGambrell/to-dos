@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
 import axios from 'axios'
-import { BASE_URL } from '../app/utils'
-import { Token } from '../models'
+import { BASE_URL } from '../../app/utils'
+import { Token } from '../../models'
 
 export interface LogInData {
 	email: string

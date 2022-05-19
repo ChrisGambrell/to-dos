@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, Suspense } from 'react'
-import { useTodos } from '../hooks'
+import { Dispatch, SetStateAction } from 'react'
+import { useTodos } from '../hooks/todos'
 import { Todo } from '../models'
 import { TodoItem } from '.'
 

@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import TimeAgo from 'react-time-ago'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { useDebounce, useOnClickOutsideTodo, useDeleteTodo, useUser } from '../hooks'
-import useEditTodo, { EditTodoData } from '../hooks/useEditTodo'
+import { useDebounce, useOnClickOutsideTodo } from '../hooks'
+import { useDeleteTodo, useEditTodo } from '../hooks/todos'
+import { EditTodoData } from '../hooks/todos/useEditTodo'
+import { useUser } from '../hooks/users'
 import { Todo, User } from '../models'
 
 const TodoItem = ({ todo, selected, setSelected }: { todo: Todo; selected: boolean; setSelected: Dispatch<SetStateAction<number>> }) => {
@@ -71,7 +73,7 @@ const TodoItem = ({ todo, selected, setSelected }: { todo: Todo; selected: boole
 				onClick={() => handleDeleteTodo(todo.id)}
 			/>
 			<TimeAgo className='flex-none font-light text-sm text-gray-400' date={todo.created_at} timeStyle='twitter' />
-			<img className='flex-none w-7 h-7 rounded-full' src={user.photo_url} title={user.name} />
+			<img className='flex-none w-7 h-7 rounded-full' src={user.photo_url} alt='profile' title={user.name} />
 		</div>
 	) : (
 		<div>Loading to-do...</div>

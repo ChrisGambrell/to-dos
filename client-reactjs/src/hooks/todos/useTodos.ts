@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query'
 import axios from 'axios'
-import { BASE_URL } from '../app/utils'
-import { Todo } from '../models'
+import { BASE_URL } from '../../app/utils'
+import { Todo } from '../../models'
 
 const useTodosQuery = (select: any) => {
 	const queryClient = useQueryClient()

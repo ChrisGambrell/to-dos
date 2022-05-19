@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import { BASE_URL } from '../app/utils'
+import { BASE_URL } from '../../app/utils'
 
 const useVerifyAuth = () => {
 	const navigate = useNavigate()

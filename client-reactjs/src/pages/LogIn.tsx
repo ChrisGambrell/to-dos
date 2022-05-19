@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { View } from '../components'
-import { useLogIn } from '../hooks'
+import { useLogIn } from '../hooks/auth'
 
 const LogIn = () => {
 	const navigate = useNavigate()

@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query'
 import axios from 'axios'
-import { BASE_URL } from '../app/utils'
-import { User } from '../models'
+import { BASE_URL } from '../../app/utils'
+import { User } from '../../models'
 
 const useUser = (userId: number) => {
 	const queryClient = useQueryClient()

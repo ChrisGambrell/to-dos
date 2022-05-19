@@ -1,5 +1,5 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
-import { useCreateTodo } from '../hooks'
+import { useCreateTodo } from '../hooks/todos'
 
 const NewTodo = ({ filter, setSelectedTodo }: { filter: number; setSelectedTodo: Dispatch<SetStateAction<number>> }) => {
 	const createTodo = useCreateTodo().mutate

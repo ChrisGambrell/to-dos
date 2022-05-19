@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query'
 import axios from 'axios'
-import { BASE_URL } from '../app/utils'
-import { Todo } from '../models'
+import { BASE_URL } from '../../app/utils'
+import { Todo } from '../../models'
 
 const useDeleteTodo = () => {
 	const queryClient = useQueryClient()
