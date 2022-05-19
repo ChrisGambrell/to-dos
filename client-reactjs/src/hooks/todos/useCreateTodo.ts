@@ -13,9 +13,8 @@ const useCreateTodo = () => {
 
 	return useMutation((data: CreateTodoData) => axios.post(BASE_URL + '/todos/', data).then((res) => res.data), {
 		onSuccess: (todo: Todo) => {
-			queryClient.setQueryData(['todos', todo.id], todo)
-			if (queryClient.getQueryData('todos')) queryClient.setQueryData('todos', (old: any) => [...old, todo])
-			else queryClient.setQueryData('todos', [todo])
+			if (!queryClient.getQueryData('todos')) queryClient.setQueryData('todos', [todo])
+			else queryClient.setQueryData('todos', (old: any) => [...old, todo])
 		},
 	})
 }

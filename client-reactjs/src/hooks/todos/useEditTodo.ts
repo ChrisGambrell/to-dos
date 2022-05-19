@@ -16,10 +16,8 @@ const useEditTodo = () => {
 			axios.patch(BASE_URL + `/todos/${todoId}`, data).then((res) => res.data),
 		{
 			onSuccess: (todo: Todo) => {
-				queryClient.setQueryData(['todos', todo.id], todo)
-				if (queryClient.getQueryData('todos'))
-					queryClient.setQueryData('todos', (old: any) => old.map((t: Todo) => (t.id === todo.id ? todo : t)))
-				else queryClient.setQueryData('todos', [todo])
+				if (!queryClient.getQueryData('todos')) queryClient.setQueryData('todos', [todo])
+				else queryClient.setQueryData('todos', (old: any) => old.map((t: Todo) => (t.id === todo.id ? todo : t)))
 			},
 		}
 	)
