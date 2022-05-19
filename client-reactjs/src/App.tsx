@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { ReactNode, useEffect, useState } from 'react'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { useVerifyAuth } from './hooks'
 import { NewTodo, TodoList } from './components'
 import { LogIn } from './pages'
 
@@ -22,24 +23,37 @@ function App() {
 			<Route
 				path='/'
 				element={
-					<div className='flex justify-center'>
-						<div className='flex flex-col w-1/2 m-4 p-4 border border-gray-200 rounded-lg shadow-lg bg-gray-50'>
-							<div className='mb-4 text-4xl font-bold'>To-Dos</div>
-							<div className='flex justify-end space-x-1'>
-								<FilterOption value={0} label='All' />
-								<FilterOption value={1} label='Complete' />
-								<FilterOption value={2} label='Incomplete' />
+					<PrivateRoute>
+						<div className='flex justify-center'>
+							<div className='flex flex-col w-1/2 m-4 p-4 border border-gray-200 rounded-lg shadow-lg bg-gray-50'>
+								<div className='mb-4 text-4xl font-bold'>To-Dos</div>
+								<div className='flex justify-end space-x-1'>
+									<FilterOption value={0} label='All' />
+									<FilterOption value={1} label='Complete' />
+									<FilterOption value={2} label='Incomplete' />
+								</div>
+								<NewTodo filter={filter} setSelectedTodo={setSelectedTodo} />
+								<TodoList filter={filter} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} />
 							</div>
-							<NewTodo filter={filter} setSelectedTodo={setSelectedTodo} />
-							<TodoList filter={filter} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} />
 						</div>
-					</div>
+					</PrivateRoute>
 				}
 			/>
 			<Route path='/login' element={<LogIn />} />
 			<Route path='*' element={<Navigate to='/' />} />
 		</Routes>
 	)
+}
+
+const PrivateRoute = ({ children }: { children?: ReactNode }) => {
+	const navigate = useNavigate()
+	const { error } = useVerifyAuth()
+
+	useEffect(() => {
+		if (error) navigate('/login')
+	}, [error])
+
+	return <>{children}</>
 }
 
 export default App
