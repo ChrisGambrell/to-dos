@@ -3,9 +3,11 @@ import TimeAgo from 'react-time-ago'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { useDebounce, useOnClickOutsideTodo, useDeleteTodo, useUser } from '../hooks'
 import useEditTodo, { EditTodoData } from '../hooks/useEditTodo'
-import { Todo } from '../models'
+import { Todo, User } from '../models'
 
 const TodoItem = ({ todo, selected, setSelected }: { todo: Todo; selected: boolean; setSelected: Dispatch<SetStateAction<number>> }) => {
+	const { data: user } = useUser(todo.user_id) as { data: User }
+
 	const deleteTodo = useDeleteTodo().mutate
 	const editTodo = useEditTodo().mutate
 
@@ -36,7 +38,7 @@ const TodoItem = ({ todo, selected, setSelected }: { todo: Todo; selected: boole
 		deleteTodo(todoId)
 	}
 
-	return (
+	return user ? (
 		<div
 			key={todo.id}
 			className={`group flex items-center space-x-2 px-1 py-2 ${
@@ -68,9 +70,11 @@ const TodoItem = ({ todo, selected, setSelected }: { todo: Todo; selected: boole
 				icon='trash'
 				onClick={() => handleDeleteTodo(todo.id)}
 			/>
-			<img src={todo.user_id as unknown as string} />
 			<TimeAgo className='flex-none font-light text-sm text-gray-400' date={todo.created_at} timeStyle='twitter' />
+			<img className='flex-none w-7 h-7 rounded-full' src={user.photo_url} title={user.name} />
 		</div>
+	) : (
+		<div>Loading to-do...</div>
 	)
 }
 
