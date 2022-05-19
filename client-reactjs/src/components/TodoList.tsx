@@ -83,7 +83,7 @@ const TodoList = ({
 						</div>
 					)}
 					<Icon
-						className='flex-none w-0 group-hover:w-3 h-0 group-hover:h-3 opacity-0 group-hover:opacity-100 text-red-500 active:text-red-600'
+						className='flex-none w-0.5 group-hover:w-3 h-0.5 group-hover:h-3 opacity-0 group-hover:opacity-100 text-red-500 active:text-red-600'
 						icon='trash'
 						onClick={() => handleDeleteTodo(todo.id)}
 					/>

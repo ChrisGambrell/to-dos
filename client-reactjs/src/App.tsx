@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useVerifyAuth } from './hooks'
-import { NewTodo, TodoList } from './components'
+import { NewTodo, TodoList, View } from './components'
 import { LogIn } from './pages'
 
 function App() {
@@ -24,9 +24,9 @@ function App() {
 				path='/'
 				element={
 					<PrivateRoute>
-						<div className='flex justify-center'>
-							<div className='flex flex-col w-1/2 m-4 p-4 border border-gray-200 rounded-lg shadow-lg bg-gray-50'>
-								<div className='mb-4 text-4xl font-bold'>To-Dos</div>
+						<View>
+							<View.Header>To-Dos</View.Header>
+							<View.Content>
 								<div className='flex justify-end space-x-1'>
 									<FilterOption value={0} label='All' />
 									<FilterOption value={1} label='Complete' />
@@ -34,8 +34,8 @@ function App() {
 								</div>
 								<NewTodo filter={filter} setSelectedTodo={setSelectedTodo} />
 								<TodoList filter={filter} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} />
-							</div>
-						</div>
+							</View.Content>
+						</View>
 					</PrivateRoute>
 				}
 			/>
