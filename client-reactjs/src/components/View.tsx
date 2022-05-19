@@ -12,8 +12,18 @@ const View = ({ children }: { children?: ReactNode }) => {
 	return (
 		<div className='flex flex-col items-center mt-4'>
 			{window.localStorage.getItem('authToken') && (
-				<div className='flex w-1/2 justify-end mr-4'>
-					<div className='cursor-pointer text-sm hover:underline text-red-500 active:text-red-600' onClick={handleSignOut}>
+				<div className='flex w-1/2 space-x-2 px-2'>
+					<div className='flex-grow text-sm text-blue-500 active:text-blue-600' onClick={() => navigate('/')}>
+						<div className='w-fit cursor-pointer hover:underline'>To-Dos</div>
+					</div>
+					<div
+						className='flex-none cursor-pointer text-sm hover:underline text-blue-500 active:text-blue-600'
+						onClick={() => navigate('/profile')}>
+						Profile
+					</div>
+					<div
+						className='flex-none cursor-pointer text-sm hover:underline text-red-500 active:text-red-600'
+						onClick={handleSignOut}>
 						Sign out
 					</div>
 				</div>
