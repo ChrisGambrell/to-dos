@@ -13,10 +13,9 @@ const LogIn = () => {
 
 	const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		console.log(email)
 
 		try {
-			logIn({ data: { email, password } })
+			await logIn({ data: { email, password } })
 			navigate('/')
 		} catch (err) {
 			console.error(err)
