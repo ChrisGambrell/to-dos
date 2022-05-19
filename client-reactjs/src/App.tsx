@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useVerifyAuth } from './hooks/auth'
-import { LogIn, Todos } from './pages'
+import { LogIn, Profile, Todos } from './pages'
 
 function App() {
 	return (
@@ -15,6 +15,7 @@ function App() {
 				}
 			/>
 			<Route path='/login' element={<LogIn />} />
+			<Route path='/profile' element={<Profile />} />
 			<Route path='*' element={<Navigate to='/' />} />
 		</Routes>
 	)

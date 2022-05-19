@@ -13,6 +13,7 @@ const useVerifyAuth = () => {
 
 	return useQuery('auth', () => axios.get(BASE_URL + '/auth/verify').then((res) => res.data), {
 		retry: false,
+		select: (data: User) => ({ ...data, created_at: new Date(data.created_at), updated_at: new Date(data.updated_at) }),
 		onSuccess: (user: User) => {
 			if (!queryClient.getQueryData('users')) queryClient.setQueryData('users', [user])
 		},
