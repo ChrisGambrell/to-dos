@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import TimeAgo from 'react-time-ago'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { useDebounce, useOnClickOutsideTodo } from '../hooks'
-import { useDeleteTodo, useEditTodo } from '../hooks/todos'
-import { EditTodoData } from '../hooks/todos/useEditTodo'
-import { useUser } from '../hooks/users'
-import { Todo, User } from '../models'
+import { useDebounce, useOnClickOutsideTodo } from '../../hooks'
+import { useDeleteTodo, useEditTodo } from '../../hooks/todos'
+import { EditTodoData } from '../../hooks/todos/useEditTodo'
+import { useUser } from '../../hooks/users'
+import { Todo, User } from '../../models'
 
 const TodoItem = ({ todo, selected, setSelected }: { todo: Todo; selected: boolean; setSelected: Dispatch<SetStateAction<number>> }) => {
 	const { data: user } = useUser(todo.user_id) as { data: User }

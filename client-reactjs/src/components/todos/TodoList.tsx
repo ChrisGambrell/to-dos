@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
-import { useTodos } from '../hooks/todos'
-import { Todo } from '../models'
+import { useTodos } from '../../hooks/todos'
+import { Todo } from '../../models'
 import { TodoItem } from '.'
 
 const TodoList = ({

@@ -1,7 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useVerifyAuth } from './hooks/auth'
-import { NewTodo, TodoList, View } from './components'
+import { View } from './components'
+import { NewTodo, TodoList } from './components/todos'
 import { LogIn } from './pages'
 
 function App() {
