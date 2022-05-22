@@ -1,8 +1,11 @@
 import TimeAgo from 'react-time-ago'
-import { User } from '../../models'
+import { useUserTodos } from '../../hooks/todos'
+import { Todo, User } from '../../models'
 import { View } from '../../components'
 
 const UserDetails = ({ user }: { user: User }) => {
+	const { data: todos = [] } = useUserTodos(user.id, Boolean(user)) as unknown as { data: [Todo] }
+
 	return user ? (
 		<>
 			<View.Header>
@@ -22,6 +25,14 @@ const UserDetails = ({ user }: { user: User }) => {
 					<div>
 						<b>Updated:</b> <TimeAgo date={user.updated_at} />
 					</div>
+					{todos.length > 0 && (
+						<div className='mt-2'>
+							<b>To-Dos</b>
+							{todos.map((todo) => (
+								<div className='text-sm italic'>{todo.body}</div>
+							))}
+						</div>
+					)}
 				</div>
 			</View.Content>
 		</>

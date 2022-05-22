@@ -6,7 +6,7 @@ class TodosController < ApplicationController
   # GET /todos
   def index
     # @todos = Todo.filter_by_user_id(@authed_user.id)
-    @todos = Todo.where(:user_id => @authed_user.id).sort
+    @todos = Todo.where(:user_id => @authed_user.id)
 
     render json: @todos
   end
