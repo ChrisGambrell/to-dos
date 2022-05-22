@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in, except: %i[ create ]
+  before_action :get_todos, only: %i[ todos ]
 
   # GET /users
   def index
@@ -38,9 +39,18 @@ class UsersController < ApplicationController
     @authed_user.destroy
   end
 
+  # GET /users/1/todos
+  def todos
+    render json: @user_todos
+  end
+
   private
     # Only allow a list of trusted parameters through.
     def user_params
       params.permit(:name, :photo_url, :email, :password)
+    end
+
+    def get_todos
+      @user_todos = Todo.where(:user_id => params[:user_id])
     end
 end

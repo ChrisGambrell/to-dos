@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     get '/auth/verify', to: 'authentication#verify'
     resources :todos, param: :todo_id
     resources :users, param: :user_id
+    get '/users/:user_id/todos', to: 'users#todos'
   end
 end
